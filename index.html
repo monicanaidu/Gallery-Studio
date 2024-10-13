@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        *{
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body{
+            height: 100%;
+            width: 100%;
+            overflow-x: hidden;
+            
+        }
+
+        .container{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .container div{
+            background-color: #ccc;
+        }
+
+        div img{
+            width: 200px;
+            height: 250px;
+           /*  border-radius: 50%; */
+        }
+    </style>
+</head>
+<body>
+   <h1>Recipes</h1>
+    <section class="container"></section>
+    <script>
+        
+
+        fetch("https://dummyjson.com/recipes")
+        .then(res=>res.json())
+        .then(res=>{
+            console.log(`output`,res)
+            console.log(`output`,res.recipes)
+            printData(res.recipes)
+        }).catch(err=>console.log(err))
+
+        var container=document.querySelector(".container");
+
+        function printData(recipes){
+            recipes.forEach((item,index)=> {
+                //create element
+                let card=document.createElement('div')
+                let name=document.createElement('h4')
+                let image=document.createElement('img');
+
+                name.textContent=item.name;
+                image.src=item.image;
+
+                card.appendChild(image);
+                card.appendChild(name);
+                container.appendChild(card);
+            });
+        }
+    </script>
+</body>
+
+</html>
